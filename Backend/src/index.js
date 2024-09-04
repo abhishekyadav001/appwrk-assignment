@@ -1,5 +1,5 @@
 const express = require("express");
-const { router } = require("./route/users.route");
+const { router } = require("./route/account.route");
 const { connection } = require("./config/db");
 const cors = require("cors");
 const app = express();
@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
   res.send("Hello This is Home Page");
 });
 
-app.use("/users", router);
+app.use("/transaction", router);
 app.listen(8080, async () => {
   try {
     await connection();
