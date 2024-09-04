@@ -1,14 +1,24 @@
 const mongoose = require("mongoose");
 
-const accountSchema = new mongoose.Schema(
+const transactionSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-    accountNumber: { type: String, required: true },
-    balance: { type: Number, required: true },
-
+    transactionType:{
+      type:string,
+      enum:['credit','debit'],
+      required:true
+    },
+    amount:{
+      type:Number,
+      required:true,
+      min:[0,"Sorry! Can not enter amount less than 0"]
+    }
+    createdAt:{
+      type:Date,
+      default:Date.now();
+    }
     // Additional fields for account details (example, account type, status, etc.)
   },
   { timestamps: true }
 );
-const accountModel = mongoose.model("Account", accountSchema);
-module.exports = { accountModel };
+const transactionModel = mongoose.model("transaction", transactionSchema);
+module.exports = { transactionModel };
